@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Cadastrar Cliente";
+}
+@section scripts{
+    <script>
+        var urlPostBeneficiario = '@Url.Action("IncluirBeneficiario", "Cliente", new { area = "" })';
+        var urlPost = '@Url.Action("Incluir", "Cliente", new { area = "" })';
+        var urlGet = '@Url.Action("Get", "Estados")';
+        var urlBeneficiarioList = '@Url.Action("BeneficiariosList", "Cliente", new { area = "" })';
+        $('#CPF').on('input', function () {
+            var cpf = $(this).val().replace(/\D/g, '');
+            var formattedCpf = '';
+
+            for (var i = 0; i < cpf.length; i++) {
+                if (i === 3 || i === 6) {
+                    formattedCpf += '.';
+                } else if (i === 9) {
+                    formattedCpf += '-';
+                }
+                formattedCpf += cpf[i];
+            }
+
+            $(this).val(formattedCpf);
+        });
+    </script>
+    @Scripts.Render("~/bundles/clientes")
+    @Scripts.Render("~/bundles/listEstados")
+}
+<h2>@Html.Raw(ViewBag.Title)</h2>
+@Html.Partial("Forms")
